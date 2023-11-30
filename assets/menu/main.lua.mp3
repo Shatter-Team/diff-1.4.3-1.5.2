@@ -192,7 +192,7 @@ function load()
 	mgSetOrigo(scoreButton, "bottomleft")
 	mgSetPos(scoreButton, left+498, bottom-55)
 	mgSetScale(scoreButton, .75, .75)
-	
+
 	moreUi = mgCreateUi("menu_more.xml")
 	mgSetOrigo(moreUi, "center")
 	mgSetPos(moreUi, centerX, centerY)
@@ -702,29 +702,40 @@ function drawWorld()
 	else mgSetCrop(modeButton, 0, 402, 580, 535)
 	end
 
+	local is_signed_out_on_android = false
+
+	if platform=="android" then
+		-- Hide this menu if we're not signed in. Since we had a bug where the menu was hard to close, and it doesn't provide
+		-- any value when you're not signed in
+		local tmp_signedIn = (mgGet("game.signedin") == "1")
+		is_signed_out_on_android = not tmp_signedIn
+	end
+
 	if mode == MODE_CLASSIC or mode == MODE_TRAINING or mode == MODE_EXPERT or mode == MODE_COOP then
-		mgSetAlpha(scoreButton, t)
-		mgDraw(scoreButton)
+		if not is_signed_out_on_android then
+			mgSetAlpha(scoreButton, t)
+			mgDraw(scoreButton)
 
-		local scoreProgress = 1
-		if targetRank < #rankScore then
-			local scoreLow = rankScore[targetRank]
-			local scoreHigh = rankScore[targetRank+1]
-			scoreProgress = (displayHighscore-scoreLow)/(scoreHigh-scoreLow)
-			if scoreProgress > 1 then scoreProgress = 1 end
+			local scoreProgress = 1
+			if targetRank < #rankScore then
+				local scoreLow = rankScore[targetRank]
+				local scoreHigh = rankScore[targetRank+1]
+				scoreProgress = (displayHighscore-scoreLow)/(scoreHigh-scoreLow)
+				if scoreProgress > 1 then scoreProgress = 1 end
+			end
+
+			mgSetText(highscoreText, displayHighscore)
+			mgSetOrigo(highscoreText, "bottomright")
+			mgSetColor(highscoreText, .75, .9, .95)
+			mgSetAlpha(highscoreText, t)
+			mgDraw(highscoreText)
+
+			local y = 93*(displayRank-1)
+			mgSetCrop(ranks, 0, y, 520, y+93)
+			mgSetOrigo(ranks, "topleft")
+			mgSetAlpha(ranks, t)
+			mgDraw(ranks)
 		end
-
-		mgSetText(highscoreText, displayHighscore)
-		mgSetOrigo(highscoreText, "bottomright")
-		mgSetColor(highscoreText, .75, .9, .95)
-		mgSetAlpha(highscoreText, t)
-		mgDraw(highscoreText)
-
-		local y = 93*(displayRank-1)
-		mgSetCrop(ranks, 0, y, 520, y+93)
-		mgSetOrigo(ranks, "topleft")
-		mgSetAlpha(ranks, t)
-		mgDraw(ranks)
 	end
 
 	x,y = mgGetPos(levelCanvas)
