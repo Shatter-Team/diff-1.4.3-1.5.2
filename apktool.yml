@@ -1,0 +1,25 @@
+!!brut.androlib.apk.ApkInfo
+apkFileName: Smash Hit 1.4.3.apk
+doNotCompress:
+- resources.arsc
+- mp3
+- png
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+resourcesAreCompressed: false
+sdkInfo:
+  minSdkVersion: '9'
+  targetSdkVersion: '26'
+sharedLibrary: false
+sparseResources: true
+unknownFiles: {}
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.8.1
+versionInfo:
+  versionCode: '10403'
+  versionName: 1.4.3
