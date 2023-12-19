@@ -366,6 +366,26 @@ function load()
 	mgSetOrigo(premiumDash, "center")
 	mgSetPos(premiumDash, centerX, 570)
 
+	crossPromoBanner = mgCreateUi("crosspromo_banner.xml")
+	mgSetOrigo(crossPromoBanner, "topleft")
+	mgSetPos(crossPromoBanner, left + 30, top + 22)
+	mgSetScale(crossPromoBanner, .75, .75)
+
+	crossPromoCanvas = mgCreateCanvas(2048, 870)
+	mgSetAlpha(crossPromoCanvas, 0)
+	mgSetOrigo(crossPromoCanvas, "center")
+	mgSetPos(crossPromoCanvas, centerX, centerY)
+	
+	crossPromoPopup = mgCreateImage("crosspromo_popup.png")
+	crossPromoButton = mgCreateUi("crosspromo_button.xml")
+	mgSetOrigo(crossPromoButton, "center")
+	mgSetPos(crossPromoButton, centerX, 810)
+	mgSetScale(crossPromoButton, 0.8)
+	crossPromoNowOnMobile = mgCreateImage("crosspromo_now_on_mobile.png")
+	mgSetOrigo(crossPromoNowOnMobile, "center")
+	mgSetPos(crossPromoNowOnMobile, centerX, 692)
+
+
 	highscoreText = mgCreateText("numbers", true)
 	mgSetScale(highscoreText, 0.5, 0.5)
 	mgSetPos(highscoreText, left+705, bottom-74)
@@ -676,7 +696,10 @@ function drawWorld()
 			mgDraw(saleMain)
 		end
 	end
-	
+
+	mgSetAlpha(crossPromoBanner, t)
+	mgDraw(crossPromoBanner)
+
 	mgSetAlpha(dbgButton, t*0.3)
 	mgSetAlpha(optionsButton, t)
 	if mgGet("game.deploy")=="0" then
@@ -702,17 +725,8 @@ function drawWorld()
 	else mgSetCrop(modeButton, 0, 402, 580, 535)
 	end
 
-	local is_signed_out_on_android = false
-
-	if platform=="android" then
-		-- Hide this menu if we're not signed in. Since we had a bug where the menu was hard to close, and it doesn't provide
-		-- any value when you're not signed in
-		local tmp_signedIn = (mgGet("game.signedin") == "1")
-		is_signed_out_on_android = not tmp_signedIn
-	end
-
 	if mode == MODE_CLASSIC or mode == MODE_TRAINING or mode == MODE_EXPERT or mode == MODE_COOP then
-		if not is_signed_out_on_android then
+		if mgGet("game.signedin") == "1" then
 			mgSetAlpha(scoreButton, t)
 			mgDraw(scoreButton)
 
@@ -892,6 +906,16 @@ function drawWorld()
 		if mgGet("player.adsonlyfree") == "0" or mgGet("game.premium")=="0" then
 			mgDraw(ads_icon)
 		end
+	end
+
+	local crossPromoAlpha = mgGetAlpha(crossPromoCanvas)
+	if crossPromoAlpha > 0 then
+		mgFullScreenColor(0, 0, 0, crossPromoAlpha * 0.5)
+		mgPushCanvas(crossPromoCanvas)
+		mgDraw(crossPromoPopup)
+		mgDraw(crossPromoButton)
+		mgDraw(crossPromoNowOnMobile)
+		mgPopCanvas()
 	end
 
 	local a = mgGetAlpha(upgradeCanvas)
@@ -1260,6 +1284,24 @@ function handleCommand(cmd)
 		mgSetCanvasEnabled(levelCanvas, true)
 	end
 	
+	if cmd == "showcrosspromo" then
+		mgPlaySound(showSound)
+		mgSetAlpha(crossPromoCanvas, 0)
+		mgSetScale(crossPromoCanvas, 1, 0.6)
+		mgSetAlpha(crossPromoCanvas, 1, "easeout", 0.15)
+		mgSetScale(crossPromoCanvas, 1, 1, "easeout", 0.15)
+		mgSetUiModal(crossPromoButton, true)
+		mgSetCanvasEnabled(levelCanvas, false)
+	end
+	
+	if cmd == "hidecrosspromo" then
+		mgPlaySound(hideSound)
+		mgSetUiModal(crossPromoButton, false)
+		mgSetAlpha(crossPromoCanvas, 0, "easein", 0.15)
+		mgSetScale(crossPromoCanvas, 0.9, 0.7, "easein", 0.15)
+		mgSetCanvasEnabled(levelCanvas, true)
+	end
+	
 	if cmd == "facebook" then
 		if platform == "ios" then
 			mgCommand("game.url fb://profile/1447160805510492")
@@ -1307,6 +1349,8 @@ function handleCommand(cmd)
 			handleCommand("hidescore")
 		elseif mgGetAlpha(upgradeCanvas) > 0 then
 			handleCommand("hideupgrade")
+		elseif mgGetAlpha(crossPromoCanvas) > 0 then
+			handleCommand("hidecrosspromo")
 		elseif mgGetAlpha(gameOverCanvas) > 0 then
 			handleCommand("hidegameover")
 		elseif mgGetAlpha(playMenuCanvas) > 0 then

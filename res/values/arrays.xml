@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="com.google.firebase.crashlytics.build_ids_arch">
+        <item>aarch64</item>
+        <item>arm</item>
+        <item>x86</item>
+        <item>x86_64</item>
+    </string-array>
+    <string-array name="com.google.firebase.crashlytics.build_ids_build_id">
+        <item>f0233993ed4327eb11bddc94f8a17dcb380172b9</item>
+        <item>58df668338ee6c799ee680606f6b658cbf965595</item>
+        <item>2c31a6bf93baab13aae20eed1df8abd38fbb5a32</item>
+        <item>6da1a27c18cdab4252891f1eee6aa6183558855a</item>
+    </string-array>
+    <string-array name="com.google.firebase.crashlytics.build_ids_lib">
+        <item>libsmashhit.so</item>
+        <item>libsmashhit.so</item>
+        <item>libsmashhit.so</item>
+        <item>libsmashhit.so</item>
+    </string-array>
+</resources>

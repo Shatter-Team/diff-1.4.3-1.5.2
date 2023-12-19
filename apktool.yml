@@ -1,5 +1,6 @@
-!!brut.androlib.apk.ApkInfo
-apkFileName: Smash Hit 1.5.2.apk
+!!brut.androlib.meta.MetaInfo
+apkFileName: Smash Hit 1.5.4.apk
+compressionType: false
 doNotCompress:
 - resources.arsc
 - META-INF/androidx.activity_activity.version
@@ -12,6 +13,8 @@ doNotCompress:
 - META-INF/androidx.core_core.version
 - META-INF/androidx.cursoradapter_cursoradapter.version
 - META-INF/androidx.customview_customview.version
+- META-INF/androidx.datastore_datastore-preferences.version
+- META-INF/androidx.datastore_datastore.version
 - META-INF/androidx.documentfile_documentfile.version
 - META-INF/androidx.drawerlayout_drawerlayout.version
 - META-INF/androidx.dynamicanimation_dynamicanimation.version
@@ -41,31 +44,46 @@ doNotCompress:
 - mp3
 - assets/dexopt/baseline.prof
 - assets/dexopt/baseline.profm
+- png
+- lib/arm64-v8a/libcrashlytics-common.so
+- lib/arm64-v8a/libcrashlytics-handler.so
+- lib/arm64-v8a/libcrashlytics-trampoline.so
+- lib/arm64-v8a/libcrashlytics.so
 - lib/arm64-v8a/libsmashhit.so
+- lib/armeabi-v7a/libcrashlytics-common.so
+- lib/armeabi-v7a/libcrashlytics-handler.so
+- lib/armeabi-v7a/libcrashlytics-trampoline.so
+- lib/armeabi-v7a/libcrashlytics.so
 - lib/armeabi-v7a/libsmashhit.so
+- lib/x86/libcrashlytics-common.so
+- lib/x86/libcrashlytics-handler.so
+- lib/x86/libcrashlytics-trampoline.so
+- lib/x86/libcrashlytics.so
 - lib/x86/libsmashhit.so
+- lib/x86_64/libcrashlytics-common.so
+- lib/x86_64/libcrashlytics-handler.so
+- lib/x86_64/libcrashlytics-trampoline.so
+- lib/x86_64/libcrashlytics.so
 - lib/x86_64/libsmashhit.so
 - webp
-- png
 isFrameworkApk: false
 packageInfo:
   forcedPackageId: '127'
   renameManifestPackage: null
-resourcesAreCompressed: false
 sdkInfo:
   minSdkVersion: '26'
   targetSdkVersion: '34'
 sharedLibrary: false
-sparseResources: true
+sparseResources: false
 unknownFiles:
   DebugProbesKt.bin: '8'
   billing-ktx.properties: '8'
   billing.properties: '8'
+  client_analytics.proto: '8'
   firebase-analytics-ktx.properties: '8'
   firebase-analytics.properties: '8'
   firebase-annotations.properties: '8'
   firebase-components.properties: '8'
-  firebase-encoders-json.properties: '8'
   firebase-encoders-proto.properties: '8'
   firebase-encoders.properties: '8'
   firebase-installations-interop.properties: '8'
@@ -84,13 +102,11 @@ unknownFiles:
   play-services-stats.properties: '8'
   play-services-tasks.properties: '8'
   transport-api.properties: '8'
-  transport-backend-cct.properties: '8'
-  transport-runtime.properties: '8'
 usesFramework:
   ids:
   - 1
   tag: null
-version: 2.8.1
+version: 2.7.0
 versionInfo:
-  versionCode: '10502'
-  versionName: 1.5.2
+  versionCode: '1050403'
+  versionName: 1.5.4
