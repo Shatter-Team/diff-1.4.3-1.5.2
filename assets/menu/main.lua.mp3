@@ -1310,6 +1310,10 @@ function handleCommand(cmd)
 		end
 	end
 	
+	if cmd == "privacy" then
+		mgCommand("game.url https://mediocre.se/privacy_policy.html")
+	end
+
 	if cmd == "twitter" then
 		mgCommand("game.url http://www.twitter.com/smashhitgame")
 	end
